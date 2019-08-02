@@ -29,19 +29,18 @@ def macchange(interface, new_mac):
     subprocess.call(["ifconfig", interface, "hw", "ether", new_mac])
     subprocess.call(["ifconfig", interface, "up"])
 
-#Call the arg_retr function to get the returned values of parser.parse_args().
+def getmac(interface):
+    change_res = subprocess.check_output(["ifconfig", interface])
+    #Regex search for the rule set within the variable mentioned.
+    mac_search_res = re.search(r"\w\w:\w\w:\w\w:\w\w:\w\w:\w\w", change_res)
+    #Returns the MAC address.
+    if mac_search_res:
+        return mac_search_res.group(0)
+    else:
+        print("[-] Error: Unable to retrieve a MAC address.")
+
 options = arg_retr()
-
-#Call the macchange function.
-#change_mac(options.interface, options.new_mac)
-
-change_res = subprocess.check_output(["ifconfig", options.interface])
-print(change_res)
-
-#Regex search for the rule set within the variable mentioned.
-mac_search_res = re.search(r"\w\w:\w\w:\w\w:\w\w:\w\w:\w\w", change_res)
-#Prints only the first result from the output.
-if mac_search_res:
-    print(mac_search_res.group(0))
-else:
-    print("[-] Error: Unable to retrieve a MAC address.")
+cmac = getmac(options.interface)
+#Cast the current MAC as a string to prevent NoneType inconsistencies.
+print("The current MAC address is" + str(cmac))
+macchange(options.interface, options.new_mac)
