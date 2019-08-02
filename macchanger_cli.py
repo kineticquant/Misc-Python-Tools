@@ -44,3 +44,10 @@ cmac = getmac(options.interface)
 #Cast the current MAC as a string to prevent NoneType inconsistencies.
 print("The current MAC address is" + str(cmac))
 macchange(options.interface, options.new_mac)
+#Reusing the same variable means whatever value is stored in the second occurence would...
+#be the one that is changed since it is referenced after the change operation.
+cmac = getmac(options.interface)
+if cmac == options.new_mac:
+    print("[+] MAC address was successfully changed to " + cmac)
+else
+    print("[-] MAC address change operation failed")
