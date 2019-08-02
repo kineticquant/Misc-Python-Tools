@@ -6,6 +6,14 @@
 import subprocess
 import optparse
 
+def macchange(interface, new_mac):
+    print("[+] Changing MAC address for " + interface + " to " + new_mac)
+
+    subprocess.cal(["ifconfig", interface, "down"])
+    subprocess.cal(["ifconfig", interface, "hw", "ether", new_mac])
+    subprocess.cal(["ifconfig", interface, "up"])
+
+
 #Parser object variable is a child of the class/parent OptionParser.
 parser = optparse.OptionParser()
 
@@ -16,11 +24,11 @@ parser.add_option("-m", "--mac", dest="new_mac", help="New MAC address")
 #Method that allows the object to understand what the user has entered and handle it.
 (options, arguments) = parser.parse_args()
 
-interface = options.interface
-new_mac = options.new_mac
+#Call the macchange function.
+change_mac(options.interface, options.new_mac)
 
-print("[+] Changing MAC address for " + interface + " to " + new_mac)
-
-subprocess.cal(["ifconfig", interface, "down"])
-subprocess.cal(["ifconfig", interface, "hw", "ether", new_mac])
-subprocess.cal(["ifconfig", interface, "up"])
+#Old code with user input. Uncomment this and comment out the parsing variables if you wish to use this application without CLI parsing.
+#print("[+] Enter the interface to be adjusted below (EX: wlan0)")
+#interface = input("Interface referenced > ")
+#print("[+] Enter the MAC address to be adjusted below (EX: 00:11:22:33:44:55)")
+#new_mac = input("New MAC address > ")
