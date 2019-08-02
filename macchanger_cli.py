@@ -1,4 +1,4 @@
-#MM - Linux Only.
+#MM - Linux only.
 #MM - May have dependency of Python3 functions with input. To use 2.*, change to raw_input.
 #MM - 08.02.2019 - Have removed all shell=True because it is a security hazard.
 #MM - 08.02.2019 - Updated to pass parameters in CLI using optparse.
@@ -12,7 +12,14 @@ def arg_retr():
     #2 options the user can enter. The dest is where we will be retrieving the user input.
     parser.add_option("-i", "--interface", dest="interface", help="Interface to have its MAC address changed")
     parser.add_option("-m", "--mac", dest="new_mac", help="New MAC address")
-    return parser.parse_args()
+    (options, arguments) = parser.parse_args()
+    if not options.interface:
+        #Error handling when interface option is empty.
+        parser.error("[-] Please specify an interface. Use --help for additional information.")
+    elif not options.new_mac:
+        #Error handling when MAC address option is empty.
+        parser.error("[-] Please specify a MAC address. Use --help for additional information.")
+    return options
 
 def macchange(interface, new_mac):
     print("[+] Changing MAC address for " + interface + " to " + new_mac)
@@ -20,8 +27,9 @@ def macchange(interface, new_mac):
     subprocess.call(["ifconfig", interface, "hw", "ether", new_mac])
     subprocess.call(["ifconfig", interface, "up"])
 
-#Call the arg_retr function to get the returned values of parser.parse_args().
-(options, arguments) = arg_retr()
 
+
+#Call the arg_retr function to get the returned values of parser.parse_args().
+options = arg_retr()
 #Call the macchange function.
 change_mac(options.interface, options.new_mac)
