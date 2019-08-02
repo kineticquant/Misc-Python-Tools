@@ -1,10 +1,15 @@
-#For use on Linux only
-#Python dependency
+#Dependency of Python3 function
+#Linux Only
 
 import subprocess
 
-interface = "wlan0"
-new_mac = "00:11:22:33:44:77"
+print("[+] Enter the interface to be adjusted below (EX: wlan0)")
+
+interface = input("Interface referenced > ")
+
+print("[+] Enter the MAC address to be adjusted below (EX: 00:11:22:33:44:55)")
+
+new_mac = input("New MAC address > ")
 
 print("[+] Changing MAC address for " + interface + " to " + new_mac)
 
