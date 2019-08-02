@@ -1,7 +1,7 @@
 #MM - Linux only.
 #MM - May have dependency of Python3 functions with input. To use 2.*, change to raw_input.
 #MM - 08.02.2019 - Have removed all shell=True because it is a security hazard.
-#MM - 08.02.2019 - Updated to pass parameters in CLI using optparse.
+#MM - 08.02.2019 - Updated to pass parameters in CLI using optparse. To use the old version with user input, reference macchanger.py.
 
 import subprocess
 import optparse
@@ -27,9 +27,10 @@ def macchange(interface, new_mac):
     subprocess.call(["ifconfig", interface, "hw", "ether", new_mac])
     subprocess.call(["ifconfig", interface, "up"])
 
-
-
 #Call the arg_retr function to get the returned values of parser.parse_args().
 options = arg_retr()
 #Call the macchange function.
 change_mac(options.interface, options.new_mac)
+
+change_res = subprocess.check_output(["ifconfig", options.interface])
+print(change_res)
