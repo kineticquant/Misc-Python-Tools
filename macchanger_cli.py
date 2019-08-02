@@ -31,8 +31,9 @@ def macchange(interface, new_mac):
 
 #Call the arg_retr function to get the returned values of parser.parse_args().
 options = arg_retr()
+
 #Call the macchange function.
-change_mac(options.interface, options.new_mac)
+#change_mac(options.interface, options.new_mac)
 
 change_res = subprocess.check_output(["ifconfig", options.interface])
 print(change_res)
