@@ -9,6 +9,7 @@ The directory contains various tools used for various purposes:
 5. FileInterceptor.py - HTTP-driven download interceptor/replacer written in Python
 6. macchanger.py - Simple-based input-driven macchanger
 7. macchanger_cli.py - More advanced variation of the macchanger.py used for Linux-driven activity
+8. MoravianXSS.py - A Python-based crawler and web app scanner for XSS vulnerabilities
 
 **These tools and any variations made from them are solely to be used for ethical and/or legal purposes. 
 TriVault and any contributor (employed by TriVault) to the TriVault tools as listed remains free of liability of any abuse of these tools, the code therin, and/or any variation of them in any way. TriVault's official release of any of these tools or the code therein is strictly to be used for educational or professional, contracted purposes and should never be used for illegal or illict actions under any circumstance.**
