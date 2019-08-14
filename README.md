@@ -13,4 +13,4 @@ The directory contains various tools used for various purposes:
 9. FileWatcher.py - Python-based file watcher that identifies creation and modification events in a folder structure
 
 **These tools and any variations made from them are solely to be used for ethical and/or legal purposes. 
-TriVault and any contributor (employed by TriVault) to the TriVault tools as listed remains free of liability of any abuse of these tools, the code therin, and/or any variation of them in any way. TriVault's official release of any of these tools or the code therein is strictly to be used for educational or professional, contracted purposes and should never be used for illegal or illict actions under any circumstance.**
+Michael Mooney and any contributor (employed by Michael Mooney) to these tools as listed remains free of liability of any abuse of these tools, the code therin, and/or any variation of them in any way. Michael Mooney's official release of any of these tools or the code therein is strictly to be used for educational or professional, contracted purposes and should never be used for illegal or illict actions under any circumstance.**
